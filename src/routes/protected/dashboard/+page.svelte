@@ -2,6 +2,16 @@
 
   let photos: any[] = [];
 
+  async function getPhotoProd() {
+    await fetch('https://data-honor-403613.an.r.appspot.com/image/db', {
+      method: 'GET'
+    }).then(res => res.json())
+    .then((data) => {
+      console.log(data)
+      photos = data
+    })
+  }
+
 </script>
 
 <body>
@@ -21,7 +31,7 @@
     
       <div class="thread">
         <div>
-          <button class="thread--commonButton">enjoy photos!</button>
+          <button class="thread--commonButton" on:click={getPhotoProd}>enjoy photos!</button>
         <div>
           <ul>
             {#each photos as photo}
