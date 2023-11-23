@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CommonButton from "$lib/components/commonButton.svelte";
 
   let photos: any[] = [];
 
@@ -21,7 +22,7 @@
       <div class="nav--container">
         <div class="nav--container__inner">
           <p>
-            <img src="/src/logo-logos_transparent.png" alt="logo" height="80px" width="80px"/>
+            <img src="https://storage.googleapis.com/zippractice1-photos/src/Your%20Pic-logos.jpeg" alt="logo" height="80px" width="80px" style="border-radius: 50%;"/>
           </p>
           <p class="nav--profile">
             My profile
@@ -31,7 +32,7 @@
     
       <div class="thread">
         <div>
-          <button class="thread--commonButton" on:click={getPhotoProd}>enjoy photos!</button>
+          <CommonButton name="enjoy photos!" on:commonButtonClicked={getPhotoProd}/>
         <div>
           <ul>
             {#each photos as photo}
@@ -42,7 +43,7 @@
                 class="thread--postImage"
                 loading="lazy"
                 />
-                <li style="font-size: x-small;">{photo.id}</li>
+                <li style="font-size: x-small;">{photo.ownerId}</li>
                 <li>{photo.label}</li>
               </div>
             {/each}
@@ -60,14 +61,7 @@
 
 
 <style>
-  button {
-    padding: 0;
-    font-family: inherit;
-    appearance: none;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-}
+  
   li {
     list-style: none;
   }
@@ -88,32 +82,6 @@
     border-left: slategray solid;
     border-width: 1px;
   }
-  .thread--commonButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 80px;
-    aspect-ratio: 1;
-    color: rgb(66, 66, 66);
-    background-color: #efefef;
-    border-radius: 50%;
-    border-color: rgb(18, 51, 40);
-    box-shadow: -4px -4px 8px #fff, 4px 4px 8px rgba(0, 0, 0, 0.24);
-  }
-  @media (any-hover: hover) {
-  .thread--commonButton {
-    transition: box-shadow 0.2s;
-  }
-
-  .thread--commonButton:hover {
-    box-shadow: -2px -2px 4px #fff, 2px 2px 4px rgb(0 0 0 / 24%);
-  }
-
-  .thread--commonButton:active {
-    background-color: #ebebeb;
-    box-shadow: inset 4px 4px 8px rgb(0 0 0 / 16%);
-  }
-}
   .thread--postContainer {
     padding: 20px;
   }
