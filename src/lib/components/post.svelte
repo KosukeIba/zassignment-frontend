@@ -3,6 +3,7 @@
 	import { onMount } from "svelte";
 	import { auth, initializeFirebase } from "$lib/firebase";
 	import CommonButton from "./commonButton.svelte";
+	import FileInput from "./fileInput.svelte";
 	
   let file: Blob;
   let modalShow : boolean = false;
@@ -53,6 +54,7 @@
 <div class="postModal--base" transition:fade={{duration: 200}}>
   <div class="postModal--overlay" on:click={close} />
   <form class="postModal--content">
+    <FileInput on:fileSelected={fileSet}/>
     <p><textarea bind:value={photoText}/></p>
     <button on:click={uploadFile}>upload</button>
   </form>
