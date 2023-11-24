@@ -5,6 +5,7 @@
 
   import type { LayoutData } from './$types';
 	import { goto } from '$app/navigation';
+	import { load } from '../+layout';
   export let data: LayoutData;
 
   let loading: boolean = true;
@@ -19,6 +20,7 @@
     const user: any = await data.getAuthUser();
 
     const loggedIn = !!user // && user?.emailVerified;
+    loading = false
     authStore.set({
       isLoading: loading,
       isLoggedIn: loggedIn,
@@ -29,8 +31,10 @@
     console.log(authStore)
 
     if (loggedIn) {
-      goto('/protected/dashboard')
+      await goto('/protected/dashboard')
     }
+
+    loading = false
   })
 
 </script>

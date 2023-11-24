@@ -5,6 +5,7 @@
 
   import type { LayoutData } from './$types';
 	import { goto } from '$app/navigation';
+	import { load } from '../+layout';
   export let data: LayoutData;
 
   let loading: boolean = true;
@@ -23,20 +24,21 @@
       isLoading: loading,
       isLoggedIn: loggedIn,
       user: user,
-      firebaseControlled: false,
+      firebaseControlled: false
     })
 
-    console.log(authStore)
 
     if (!loggedIn) {
-      goto('/')
+      await goto('/unprotected/login')
     }
-  })
+
+    loading = false
+  });
 
 </script>
 
-{#if !loading}
-<div style="background-color: white; width:100vw; height:100vh; z-index:999"></div>
+{#if loading}
+<div></div>
 {/if}
 
 <style>
