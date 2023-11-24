@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
   import CommonButton from "$lib/components/commonButton.svelte";
 	import Post from "$lib/components/post.svelte";
+	import { auth } from "$lib/firebase";
+	import { signOut } from "firebase/auth";
 
   let photos: any[] = [];
 
@@ -12,6 +15,14 @@
       console.log(data)
       photos = data
     })
+  }
+
+  function logout() {
+    signOut(auth).then(() => {
+      goto('/unprotected/login')
+    }).catch((error) => {
+      console.log(error)
+    });
   }
 
 </script>
@@ -27,6 +38,9 @@
           </p>
           <p class="nav--profile">
             My profile
+          </p>
+          <p>
+            <button on:click={logout}>logout</button>
           </p>
         </div>
       </div>

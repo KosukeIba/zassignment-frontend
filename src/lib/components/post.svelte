@@ -34,17 +34,24 @@
     const formdata = new FormData();
     formdata.append("file", file);
     formdata.append("description", photoText);
-    formdata.append("ownerId", ownerId);
+    formdata.append("ownerId", "1");
     
-    const formResponse = await fetch("https://data-honor-403613.an.r.appspot.com/upload", {
+    const formResponse = await fetch("https://data-honor-403613.an.r.appspot.com/post", {
+    // const formResponse = await fetch("http://localhost:8080/post", {
       method: "POST",
       body: formdata
+    }).catch((e) => {
+      console.log(e)
+      photoText = '';
+      modalShow = false;
+      window.alert("something went wrong in posting. Please try again")
     });
 
-    photoText = 'text';
-    modalShow = false
-
-    console.log(await formResponse.json())
+    photoText = '';
+    modalShow = false;
+    if(formResponse) {
+      console.log(await formResponse.json())
+    }
   }
 </script>
 
