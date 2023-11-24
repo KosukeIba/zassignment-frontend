@@ -1,5 +1,6 @@
 <script lang="ts">
   import CommonButton from "$lib/components/commonButton.svelte";
+	import Post from "$lib/components/post.svelte";
 
   let photos: any[] = [];
 
@@ -50,6 +51,10 @@
           </ul>
         </div>
       </div>
+    </div>
+
+    <div class="post">
+      <Post />
     </div>
   </main>
 
