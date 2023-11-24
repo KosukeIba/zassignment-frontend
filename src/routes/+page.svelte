@@ -1,6 +1,8 @@
 <script>
-	import Login from "$lib/components/login.svelte";
+	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
+
+  onMount(() => {
+    goto("unprotected/login")
+  })
 </script>
-
-
-<Login />
