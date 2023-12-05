@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { auth } from "../firebase";
-	import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword, type PasswordPolicy, EmailAuthCredential } from "firebase/auth";
+	import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword, type PasswordPolicy, EmailAuthCredential, createUserWithEmailAndPassword } from "firebase/auth";
 	import { goto } from "$app/navigation";
 
   let loginDisplay : boolean = true;
@@ -18,12 +18,23 @@
       const user = userCredential.user;
       console.log(user);
     }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
         console.log(error);
         alert('wrong information')
     });
   }
+
+  async function signup() {
+    setPersistence(auth, browserSessionPersistence).then(async () => {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      email = '';
+      password = '';
+      goto('/protected/dashboard');
+      console.log(userCredential.user)
+    }).catch((error) => {
+      console.log(error);
+      alert('something went wrong. Please try again')
+    })
+}
 </script>
 
 <div class="authForm--container">
@@ -47,7 +58,7 @@
     <form class="signup--container">
       <input type='email' placeholder="email"/>
       <input type="password" placeholder="password"/>
-      <button class="signup--button">sign up</button>
+      <button class="signup--button" on:click={signup}>sign up</button>
       <p class="signup--message">Already registered? 
         <button class="signup--gotoLogin"
           on:click={() => {

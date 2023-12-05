@@ -27,7 +27,6 @@
 
   function fileSet (event: { detail: { selectedFile: Blob; }; }) {
     file = event.detail.selectedFile;
-    console.log(file.size)
   }
 
   async function uploadFile() {
@@ -58,7 +57,7 @@
 <CommonButton name="post" on:commonButtonClicked={open}></CommonButton>
 {#if modalShow}
 
-<div class="postModal--base" transition:fade={{duration: 200}}>
+<div class="postModal--base" data-testid="postModalTest" transition:fade={{duration: 200}}>
   <div class="postModal--overlay" on:click={close} />
   <form class="postModal--content">
     <FileInput on:fileSelected={fileSet}/>
